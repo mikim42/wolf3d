@@ -6,7 +6,7 @@
 #    By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/15 01:56:50 by mikim             #+#    #+#              #
-#    Updated: 2017/12/22 17:58:51 by mikim            ###   ########.fr        #
+#    Updated: 2017/11/14 10:45:06 by mikim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,6 +114,5 @@ clean:
 fclean: clean
 	@/bin/rm -f $(NAME)
 	@echo "\x1B[31m[libft - fclean]\x1B[0m"
-
 
 re: fclean all

@@ -6,13 +6,17 @@
 #    By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/04 20:32:23 by mikim             #+#    #+#              #
-#    Updated: 2018/01/04 22:50:37 by mikim            ###   ########.fr        #
+#    Updated: 2018/01/05 22:31:02 by mikim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC = main.c \
 	  wolf3d.c \
+	  raycasting.c \
+	  parse_handler.c \
+	  plot_handler.c \
 	  map_handler.c \
+	  hook_handler.c \
 	  exit_handler.c
 
 OBJ = $(SRC:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 20:44:19 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/04 22:46:38 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/05 22:42:39 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,26 @@
 
 # include <libft.h>
 # include <mlx.h>
+# include <stdbool.h>
 # include <math.h>
 
 # define THREAD 4
 
+# define DEFAULT 1000
 # define WID_RATE 100
 # define HGT_RATE 100
+# define WID_MAX 1900
+# define WID_MIN 100
+# define HGT_MAX 1200
+# define HGT_MIN 100
+# define TEXTURE 64
+# define WHITE 0xFFFFFF
+
+# define KEY 2
+# define MOUSE 4
+# define MOTION 6
+# define EXPOSE 12
+# define CLOSE 17
 
 # define UP 126
 # define DOWN 125
@@ -32,33 +46,144 @@ typedef struct		s_mlx
 {
 	void			*mlx;
 	void			*win;
+	int				*img;
 	int				wid;
 	int				hgt;
 	int				*data;
 	int				size;
 	int				bits;
 	int				endian;
+	int				expose;
+	int				motion_x;
+	int				motion_y;
 }					t_mlx;
-
-typedef struct		s_thread
-{
-	pthread_mutex_t	mutex;
-	int				n[THREAD];
-}					t_thread;
 
 typedef struct		s_map
 {
+	int				*map;
 	int				row;
 	int				col;
-	int				*map;
+	int				y;
+	int				x;
 }					t_map;
 
 typedef struct		s_env
 {
 	t_mlx			mlx;
-	t_thread		thread;
 	t_map			map;
+	pthread_mutex_t	mutex;
+	int				*texture[6];
+	double			dir_x;
+	double			dir_y;
+	double			plane_x;
+	double			palne_y;
+	double			curr_t;
+	double			prev_t;
+	double			camera_x;
+	double			camera_y;
+	double			ray_pos_x;
+	double			ray_pos_y;
+	double			ray_dir_x;
+	double			ray_dir_y;
+	int				map_y;
+	int				map_x;
+	double			side_dist_x;
+	double			side_dist_y;
+	double			delta_dist_x;
+	double			delta_dist_y;
+	double			perp_wall_dist;
+	int				step_x;
+	int				step_y;
+	int				hit;
+	int				side;
+	int				line_hgt;
+	int				draw_st;
+	int				draw_end;
+	int				text_n;
+	double			wall_x;
 }					t_env;
+
+typedef struct		s_thread
+{
+	t_env			*e;
+	int				n;
+}					t_thread;
+
+/*
+**					wolf3d
+*/
+
+void				wolf3d(t_env *e);
+void				cross_hair(t_env *e);
+
+/*
+**					raycasting
+*/
+
+void				raycasting(t_env *e);
+void				calc_ray(t_env *e);
+void				dda_algorithm(t_env *e);
+void				dda_loop(t_env *e);
+
+/*
+**					parse_handler
+*/
+
+void				parse(t_env *e, char *map);
+void				init_mlx(t_env *e);
+void				init_texture(t_env *e);
+void				init_map(t_env *e, char *map);
+void				init_wolf3d(t_env *e);
+
+/*
+**					map_handler
+*/
+
+bool				map_size(t_env *e, int fd);
+bool				map_start_pos(t_env *e, int fd);
+bool				map_create(t_env *e, int fd);
+bool				map_alloc(t_env *e);
+char				**map_valid(char *line);
+
+/*
+**					plot_handler
+*/
+
+void				plot(t_env *e);
+
+/*
+**					hook_handler
+*/
+
+int					key_hooks(int code, t_env *e);
+int					mouse_hooks(int button, int x, int y, t_env *e);
+int					motion_hooks(int x, int y, t_env *e);
+int					expose_hooks(t_env *e);
+int					close_hooks(t_env *e);
+
+/*
+**					exit_handler
+*/
+
+void				ft_exit(t_env *e, char *msg);
+void				destroy(t_env *e);
+
+/*
+**
+*/
+
+
+
+/*
+**
+*/
+
+
+
+/*
+**
+*/
+
 
 
 
