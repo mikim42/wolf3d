@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 17:09:38 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/05 22:42:00 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/06 13:07:56 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,22 @@
 
 void	cross_hair(t_env *e)
 {
-	e->data[(e->hgt / 2 - 1) * e->size / 4 + (e->wid / 2)] = WHITE;
-	e->data[(e->hgt / 2 - 2) * e->size / 4 + (e->wid / 2)] = WHITE;
-	e->data[(e->hgt / 2 + 1) * e->size / 4 + (e->wid / 2)] = WHITE;
-	e->data[(e->hgt / 2 + 2) * e->size / 4 + (e->wid / 2)] = WHITE;
-	e->data[(e->hgt / 2) * e->size / 4 + (e->wid / 2) - 1] = WHITE;
-	e->data[(e->hgt / 2) * e->size / 4 + (e->wid / 2) - 2] = WHITE;
-	e->data[(e->hgt / 2) * e->size / 4 + (e->wid / 2) + 1] = WHITE;
-	e->data[(e->hgt / 2) * e->size / 4 + (e->wid / 2) + 2] = WHITE;
+	e->mlx.data[(e->mlx.hgt / 2 - 1) * e->mlx.size / 4 + (e->mlx.wid / 2)] =
+	WHITE;
+	e->mlx.data[(e->mlx.hgt / 2 - 2) * e->mlx.size / 4 + (e->mlx.wid / 2)] =
+	WHITE;
+	e->mlx.data[(e->mlx.hgt / 2 + 1) * e->mlx.size / 4 + (e->mlx.wid / 2)] =
+	WHITE;
+	e->mlx.data[(e->mlx.hgt / 2 + 2) * e->mlx.size / 4 + (e->mlx.wid / 2)] =
+	WHITE;
+	e->mlx.data[(e->mlx.hgt / 2) * e->mlx.size / 4 + (e->mlx.wid / 2) - 1] =
+	WHITE;
+	e->mlx.data[(e->mlx.hgt / 2) * e->mlx.size / 4 + (e->mlx.wid / 2) - 2] =
+	WHITE;
+	e->mlx.data[(e->mlx.hgt / 2) * e->mlx.size / 4 + (e->mlx.wid / 2) + 1] =
+	WHITE;
+	e->mlx.data[(e->mlx.hgt / 2) * e->mlx.size / 4 + (e->mlx.wid / 2) + 2] =
+	WHITE;
 }
 
 void	wolf3d(t_env *e)

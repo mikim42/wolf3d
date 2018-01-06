@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 17:59:08 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/05 21:49:24 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/06 13:18:01 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ void	dda_loop(t_env *e)
 			e->map_x += e->step_y;
 			e->side = 1;
 		}
-		if (e->map->map[e->map_x][e->map_y] > 0)
+		if (e->map.map[e->map_x][e->map_y] > 0)
 			e->hit = 1;
 	}
 	if (!e->side)
 		e->perp_wall_dist =
 		(e->map_x - e->ray_pos_x + (1 - e->step_x) / 2) / e->ray_dir_x;
 	else
-		e->per_wall_dist =
+		e->perp_wall_dist =
 		(e->map_y - e->ray_pos_y + (1 - e->step_y) / 2) / e->ray_dir_y;
 }
 
@@ -53,7 +53,7 @@ void	dda_algorithm(t_env *e)
 		e->step_x = 1;
 		e->side_dist_x = (e->map_x + 1.0 - e->ray_pos_x) * e->delta_dist_x;
 	}
-	if (ray_dir_y < 0)
+	if (e->ray_dir_y < 0)
 	{
 		e->step_x = 1;
 		e->side_dist_y = (e->ray_pos_y - e->map_y) * e->delta_dist_y;
@@ -65,13 +65,13 @@ void	dda_algorithm(t_env *e)
 	}
 }
 
-void	calc_ray(t_env *e)
+void	calc_ray(t_env *e, int x)
 {
-	e->camera_x = 2.0 * x / double(e->mlx.wid) - 1;
-	e->ray_pos_x = e->mlx.x;
-	e->ray_pos_y = e->mlx.y;
-	e->ray_dir_x = e->dir_x + e->plane_x * e->camaera_x;
-	e->ray_dir_y = e->dir_y + e->plane_y * e->camaera_x;
+	e->camera_x = 2.0 * x / (double)e->mlx.wid - 1;
+	e->ray_pos_x = e->map.x;
+	e->ray_pos_y = e->map.y;
+	e->ray_dir_x = e->dir_x + e->plane_x * e->camera_x;
+	e->ray_dir_y = e->dir_y + e->plane_y * e->camera_x;
 	e->map_x = (int)e->ray_pos_x;
 	e->map_y = (int)e->ray_pos_y;
 }
@@ -83,7 +83,7 @@ void	raycasting(t_env *e)
 	x = -1;
 	while (++x < e->mlx.wid)
 	{
-		calc_ray(e);
+		calc_ray(e, x);
 		dda_algorithm(e);
 		dda_loop(e);
 		e->line_hgt = (int)(e->mlx.hgt / e->perp_wall_dist);
@@ -93,6 +93,6 @@ void	raycasting(t_env *e)
 			e->draw_st = 0;
 		if (e->draw_end >= e->mlx.hgt)
 			e->draw_end = e->mlx.hgt - 1;
-		plot(e);
+		plot(e, x);
 	}
 }

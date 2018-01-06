@@ -6,25 +6,29 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 21:49:47 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/05 22:30:04 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/06 13:17:57 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
 
-void	plot(t_env *e)
+void	plot(t_env *e, int x)
 {
 	int y;
 	int d;
+	int texture_x;
 	int texture_y;
 	int color;
 
 	e->text_n = e->map.map[e->map_x][e->map_y] - 1;
 	if (!e->side)
-		wall_x = e->ray_pos_y + e->perp_wall_dist * e->ray_dir_y;
+		e->wall_x = e->ray_pos_y + e->perp_wall_dist * e->ray_dir_y;
 	else
-		wall_x = e->ray_pos_x + e->perp_wall_dist * e->ray_dir_x;
-	e->wall_x -= floor(wall_x);
+		e->wall_x = e->ray_pos_x + e->perp_wall_dist * e->ray_dir_x;
+	e->wall_x -= floor(e->wall_x);
+	texture_x = (int)e->wall_x * (double)TEXTURE;
+	if((!e->side && e->ray_dir_x > 0) || (e->side && e->ray_dir_y < 0))
+		texture_x = TEXTURE - texture_x - 1;
 	y = -1;
 	while (++y < e->draw_st)
 	{

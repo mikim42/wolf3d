@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 20:44:19 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/05 22:42:39 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/06 13:29:06 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <libft.h>
 # include <mlx.h>
-# include <stdbool.h>
 # include <math.h>
+# include <pthread.h>
 
 # define THREAD 4
 
@@ -54,13 +54,14 @@ typedef struct		s_mlx
 	int				bits;
 	int				endian;
 	int				expose;
+	int				motion;
 	int				motion_x;
 	int				motion_y;
 }					t_mlx;
 
 typedef struct		s_map
 {
-	int				*map;
+	int				**map;
 	int				row;
 	int				col;
 	int				y;
@@ -76,7 +77,7 @@ typedef struct		s_env
 	double			dir_x;
 	double			dir_y;
 	double			plane_x;
-	double			palne_y;
+	double			plane_y;
 	double			curr_t;
 	double			prev_t;
 	double			camera_x;
@@ -121,7 +122,7 @@ void				cross_hair(t_env *e);
 */
 
 void				raycasting(t_env *e);
-void				calc_ray(t_env *e);
+void				calc_ray(t_env *e, int x);
 void				dda_algorithm(t_env *e);
 void				dda_loop(t_env *e);
 
@@ -143,13 +144,13 @@ bool				map_size(t_env *e, int fd);
 bool				map_start_pos(t_env *e, int fd);
 bool				map_create(t_env *e, int fd);
 bool				map_alloc(t_env *e);
-char				**map_valid(char *line);
+char				**map_valid(t_env *e, char *line);
 
 /*
 **					plot_handler
 */
 
-void				plot(t_env *e);
+void				plot(t_env *e, int x);
 
 /*
 **					hook_handler
