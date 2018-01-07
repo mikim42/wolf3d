@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 17:52:07 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/06 13:29:33 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/06 18:17:04 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,20 @@ int		mouse_hooks(int button, int x, int y, t_env *e)
 
 int		key_hooks(int code, t_env *e)
 {
-	code = (int)e;
+	code == 53 ? ft_exit(e, NULL) : 0;
+	if (code == 126)
+	{
+		double olddirx = e->dir_x;
+		e->dir_x = e->dir_x * cos(-0.1) - e->dir_y * sin(-0.1);
+		e->dir_y = olddirx * sin(-0.1) + e->dir_y * cos(-0.1);
+		double oldPlaneX = e->plane_x;
+		e->plane_x = e->plane_x * cos(-0.1) - e->plane_y * sin(-0.1);
+		e->plane_y = oldPlaneX * sin(-0.1) + e->plane_y * cos(-0.1);
+	}
+	mlx_destroy_image(e->mlx.mlx, e->mlx.img);
+	e->mlx.img = mlx_new_image(e->mlx.mlx, e->mlx.wid, e->mlx.hgt);
+	e->mlx.data = (int*)mlx_get_data_addr(e->mlx.img, &e->mlx.bits,
+	&e->mlx.size, &e->mlx.endian);
+	wolf3d(e);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 17:59:08 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/06 13:18:01 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/06 18:17:06 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	dda_loop(t_env *e)
 {
-	while (!e->hit)
+	while (true)
 	{
 		if (e->side_dist_x < e->side_dist_y)
 		{
@@ -25,24 +25,30 @@ void	dda_loop(t_env *e)
 		else
 		{
 			e->side_dist_y += e->delta_dist_y;
-			e->map_x += e->step_y;
+			e->map_y += e->step_y;
 			e->side = 1;
 		}
 		if (e->map.map[e->map_x][e->map_y] > 0)
-			e->hit = 1;
+			break ;
 	}
 	if (!e->side)
+	{
 		e->perp_wall_dist =
 		(e->map_x - e->ray_pos_x + (1 - e->step_x) / 2) / e->ray_dir_x;
+	}
 	else
+	{
 		e->perp_wall_dist =
 		(e->map_y - e->ray_pos_y + (1 - e->step_y) / 2) / e->ray_dir_y;
+	}
 }
 
 void	dda_algorithm(t_env *e)
 {
-	e->delta_dist_x = sqrt(1 + FT_SQR(e->ray_dir_y) / FT_SQR(e->ray_dir_x));
-	e->delta_dist_y = sqrt(1 + FT_SQR(e->ray_dir_x) / FT_SQR(e->ray_dir_y));
+	e->delta_dist_x =
+	sqrt(1 + (e->ray_dir_y * e->ray_dir_y) / (e->ray_dir_x * e->ray_dir_x));
+	e->delta_dist_y =
+	sqrt(1 + (e->ray_dir_x * e->ray_dir_x) / (e->ray_dir_y * e->ray_dir_y));
 	if (e->ray_dir_x < 0)
 	{
 		e->step_x = -1;
@@ -67,13 +73,13 @@ void	dda_algorithm(t_env *e)
 
 void	calc_ray(t_env *e, int x)
 {
-	e->camera_x = 2.0 * x / (double)e->mlx.wid - 1;
+	e->camera = 2 * x / (double)e->mlx.wid - 1;
 	e->ray_pos_x = e->map.x;
 	e->ray_pos_y = e->map.y;
-	e->ray_dir_x = e->dir_x + e->plane_x * e->camera_x;
-	e->ray_dir_y = e->dir_y + e->plane_y * e->camera_x;
-	e->map_x = (int)e->ray_pos_x;
-	e->map_y = (int)e->ray_pos_y;
+	e->ray_dir_x = e->dir_x + e->plane_x * e->camera;
+	e->ray_dir_y = e->dir_y + e->plane_y * e->camera;
+	e->map_x = e->ray_pos_x;
+	e->map_y = e->ray_pos_y;
 }
 
 void	raycasting(t_env *e)
@@ -86,7 +92,7 @@ void	raycasting(t_env *e)
 		calc_ray(e, x);
 		dda_algorithm(e);
 		dda_loop(e);
-		e->line_hgt = (int)(e->mlx.hgt / e->perp_wall_dist);
+		e->line_hgt = e->mlx.hgt / e->perp_wall_dist;
 		e->draw_st = -e->line_hgt / 2 + e->mlx.hgt / 2;
 		e->draw_end = e->line_hgt / 2 + e->mlx.hgt / 2;
 		if (e->draw_st < 0)

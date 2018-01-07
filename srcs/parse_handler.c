@@ -6,31 +6,11 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 22:16:43 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/06 13:14:36 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/06 18:17:05 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
-
-void	init_wolf3d(t_env *e)
-{
-	int i;
-
-	e->dir_x = -1;
-	e->dir_y = 0;
-	e->plane_x = 0;
-	e->plane_y = 0.66;
-	e->curr_t = 0;
-	e->prev_t = 0;
-	e->mlx.wid = DEFAULT;
-	e->mlx.hgt = DEFAULT;
-	e->mlx.mlx = mlx_init();
-	pthread_mutex_init(&e->mutex, NULL);
-	i = -1;
-	while (++i < 8)
-		if (!(e->texture[i] = malloc(sizeof(unsigned int) * FT_SQR(TEXTURE))))
-			ft_exit(e, "wolf3d: failed to init mlx");
-}
 
 void	init_map(t_env *e, char *map)
 {
@@ -78,20 +58,43 @@ void	init_texture(t_env *e)
 
 void	init_mlx(t_env *e)
 {
-	int i;
-
 	e->mlx.win = mlx_new_window(e->mlx.mlx, e->mlx.wid, e->mlx.hgt,
 	"Wolf3d .mikim");
 	e->mlx.img = mlx_new_image(e->mlx.mlx, e->mlx.wid, e->mlx.hgt);
-	e->mlx.data = (int*)mlx_get_data_addr(&e->mlx.img, &e->mlx.bits,
+	e->mlx.data = (int*)mlx_get_data_addr(e->mlx.img, &e->mlx.bits,
 	&e->mlx.size, &e->mlx.endian);
+}
+
+void	init_wolf3d(t_env *e)
+{
+	int i;
+
+	e->dir_x = -1.0;
+	e->dir_y = 0;
+	e->plane_x = 0;
+	e->plane_y = 0.66;
+	e->mlx.wid = DEFAULT;
+	e->mlx.hgt = DEFAULT;
+	e->mlx.mlx = mlx_init();
+	pthread_mutex_init(&e->mutex, NULL);
 	i = -1;
+	while (++i < 6)
+		if (!(e->texture[i] = malloc(sizeof(int) * FT_SQR(TEXTURE))))
+			ft_exit(e, "wolf3d: failed to init mlx");
 }
 
 void	parse(t_env *e, char *map)
 {
+	init_wolf3d(e);
 	init_mlx(e);
 	init_texture(e);
 	init_map(e, map);
-	init_wolf3d(e);
+	for (int i = 0; i < e->map.row; i++)
+	{
+		for (int j = 0; j < e->map.col; j++)
+			if (j == e->map.col - 1)
+				printf("%d\n", e->map.map[i][j]);
+			else
+				printf("%d ", e->map.map[i][j]);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 18:53:48 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/05 15:51:03 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/06 16:54:29 by mikim            ###   ########.fr       */
 /*   Updated: 2017/11/17 20:55:47 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -28,15 +28,14 @@ static int	ft_new_line(char **s, char **line, int fd, int ret)
 		free(s[fd]);
 		s[fd] = tmp;
 		if (s[fd][0] == '\0')
-			free(s[fd]);
+			ft_strdel(&s[fd]);
 	}
 	else if (s[fd][len] == '\0')
 	{
 		if (ret == BUFF_SIZE)
 			return (get_next_line(fd, line));
 		*line = ft_strdup(s[fd]);
-		free(s[fd]);
-		s[fd] = NULL;
+		ft_strdel(&s[fd]);
 	}
 	return (1);
 }
@@ -63,7 +62,7 @@ int			get_next_line(const int fd, char **line)
 	}
 	if (ret < 0)
 		return (-1);
-	else if (ret == 0 && (s[fd] == NULL || s[fd][0] == '\0'))
+	else if (ret == 0 && (s[fd] == NULL))
 		return (0);
 	return (ft_new_line(s, line, fd, ret));
 }

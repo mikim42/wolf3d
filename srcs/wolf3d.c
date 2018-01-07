@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 17:09:38 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/06 13:07:56 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/06 18:17:05 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,5 @@ void	wolf3d(t_env *e)
 	mlx_hook(e->mlx.win, MOUSE, 0, mouse_hooks, e);
 	mlx_hook(e->mlx.win, EXPOSE, 0, expose_hooks, e);
 	mlx_hook(e->mlx.win, CLOSE, 0, close_hooks, e);
+	mlx_loop(e->mlx.mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 20:44:19 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/06 13:29:06 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/06 18:17:07 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct		s_mlx
 {
 	void			*mlx;
 	void			*win;
-	int				*img;
+	char			*img;
 	int				wid;
 	int				hgt;
 	int				*data;
@@ -78,10 +78,7 @@ typedef struct		s_env
 	double			dir_y;
 	double			plane_x;
 	double			plane_y;
-	double			curr_t;
-	double			prev_t;
-	double			camera_x;
-	double			camera_y;
+	double			camera;
 	double			ray_pos_x;
 	double			ray_pos_y;
 	double			ray_dir_x;
@@ -95,7 +92,6 @@ typedef struct		s_env
 	double			perp_wall_dist;
 	int				step_x;
 	int				step_y;
-	int				hit;
 	int				side;
 	int				line_hgt;
 	int				draw_st;
