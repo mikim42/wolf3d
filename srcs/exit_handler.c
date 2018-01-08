@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 22:12:44 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/06 13:31:22 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/07 15:00:47 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ void	destroy(t_env *e)
 		while (e->map.map[++i])
 			free(e->map.map[i]);
 		free(e->map.map);
+	}
+	if (e->texture[0])
+	{
+		i = -1;
+		while (++i < 4)
+			free(e->texture[i]);
 	}
 }
 

@@ -6,7 +6,7 @@
 #    By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/04 20:32:23 by mikim             #+#    #+#              #
-#    Updated: 2018/01/06 18:17:08 by mikim            ###   ########.fr        #
+#    Updated: 2018/01/07 17:17:20 by mikim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC = main.c \
 	  parse_handler.c \
 	  plot_handler.c \
 	  map_handler.c \
+	  valid_handler.c \
 	  hook_handler.c \
 	  exit_handler.c
 

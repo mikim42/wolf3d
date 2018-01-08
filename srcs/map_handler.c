@@ -6,40 +6,11 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 22:40:27 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/06 18:09:14 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/07 15:43:25 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
-
-char	**map_valid(t_env *e, char *line)
-{
-	char	**split;
-	int		i;
-
-	i = -1;
-	while (line[++i])
-		if (!(FT_ISNUM(line[i]) || line[i] == ' '))
-		{
-			free(line);
-			return (NULL);
-		}
-	if (!(split = ft_strsplit(line, ' ')))
-	{
-		free(line);
-		return (NULL);
-	}
-	i = -1;
-	while (split[++i])
-		;
-	if (i != e->map.col)
-	{
-		free(line);
-		ft_splitdel(split);
-		return (NULL);
-	}
-	return (split);
-}
 
 bool	map_alloc(t_env *e)
 {
@@ -95,8 +66,8 @@ bool	map_start_pos(t_env *e, int fd)
 	if (!line || !(split = ft_strsplit(line, ' ')))
 		ret = false;
 	if (!split || !split[1] || split[2] ||
-		(e->map.x = ft_atoi(split[0]) - 1) < 0 ||
-		(e->map.y = ft_atoi(split[1]) - 1) < 0)
+		(e->map.x = ft_atoi(split[0]) - 0.5) < 0 ||
+		(e->map.y = ft_atoi(split[1]) - 0.5) < 0)
 		ret = false;
 	if (e->map.y >= e->map.row || e->map.x >= e->map.col)
 		ret = false;

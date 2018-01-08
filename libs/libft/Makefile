@@ -6,12 +6,13 @@
 #    By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/15 01:56:50 by mikim             #+#    #+#              #
-#    Updated: 2017/11/14 10:45:06 by mikim            ###   ########.fr        #
+#    Updated: 2018/01/07 12:37:17 by mikim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC = ft_atoi.c\
 	  ft_atoi_base.c\
+	  ft_atof.c\
 	  ft_bzero.c\
 	  ft_intlen.c\
 	  ft_itoa.c\

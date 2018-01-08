@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 17:59:08 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/06 18:17:06 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/07 17:16:14 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,8 @@ void	dda_loop(t_env *e)
 
 void	dda_algorithm(t_env *e)
 {
-	e->delta_dist_x =
-	sqrt(1 + (e->ray_dir_y * e->ray_dir_y) / (e->ray_dir_x * e->ray_dir_x));
-	e->delta_dist_y =
-	sqrt(1 + (e->ray_dir_x * e->ray_dir_x) / (e->ray_dir_y * e->ray_dir_y));
+	e->delta_dist_x = sqrt(1 + FT_SQR(e->ray_dir_y) / FT_SQR(e->ray_dir_x));
+	e->delta_dist_y = sqrt(1 + FT_SQR(e->ray_dir_x) / FT_SQR(e->ray_dir_y));
 	if (e->ray_dir_x < 0)
 	{
 		e->step_x = -1;
@@ -61,7 +59,7 @@ void	dda_algorithm(t_env *e)
 	}
 	if (e->ray_dir_y < 0)
 	{
-		e->step_x = 1;
+		e->step_y = -1;
 		e->side_dist_y = (e->ray_pos_y - e->map_y) * e->delta_dist_y;
 	}
 	else
@@ -73,32 +71,35 @@ void	dda_algorithm(t_env *e)
 
 void	calc_ray(t_env *e, int x)
 {
-	e->camera = 2 * x / (double)e->mlx.wid - 1;
+	e->camera = 2 * x / (double)WINDOW - 1;
 	e->ray_pos_x = e->map.x;
 	e->ray_pos_y = e->map.y;
+	e->map_x = (int)e->map.x;
+	e->map_y = (int)e->map.y;
 	e->ray_dir_x = e->dir_x + e->plane_x * e->camera;
 	e->ray_dir_y = e->dir_y + e->plane_y * e->camera;
-	e->map_x = e->ray_pos_x;
-	e->map_y = e->ray_pos_y;
 }
 
 void	raycasting(t_env *e)
 {
 	int x;
+	int	st;
+	int end;
 
 	x = -1;
-	while (++x < e->mlx.wid)
+	while (++x < WINDOW)
 	{
 		calc_ray(e, x);
 		dda_algorithm(e);
 		dda_loop(e);
-		e->line_hgt = e->mlx.hgt / e->perp_wall_dist;
-		e->draw_st = -e->line_hgt / 2 + e->mlx.hgt / 2;
-		e->draw_end = e->line_hgt / 2 + e->mlx.hgt / 2;
-		if (e->draw_st < 0)
-			e->draw_st = 0;
-		if (e->draw_end >= e->mlx.hgt)
-			e->draw_end = e->mlx.hgt - 1;
-		plot(e, x);
+		e->line_hgt = (int)(WINDOW / e->perp_wall_dist);
+		st = -e->line_hgt / 2 + WINDOW / 2;
+		end = e->line_hgt / 2 + WINDOW / 2;
+		if (st < 0)
+			st = 0;
+		if (end >= WINDOW)
+			end = WINDOW - 1;
+		plot(e, x, st, end);
+		plot_floor(e, x, end); 
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 20:44:19 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/06 18:17:07 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/07 17:23:47 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,14 @@
 # include <libft.h>
 # include <mlx.h>
 # include <math.h>
-# include <pthread.h>
 
-# define THREAD 4
-
-# define DEFAULT 1000
-# define WID_RATE 100
-# define HGT_RATE 100
-# define WID_MAX 1900
-# define WID_MIN 100
-# define HGT_MAX 1200
-# define HGT_MIN 100
+# define WINDOW 1000
 # define TEXTURE 64
+# define SKY 0x99FFFF
+# define GROUND 0xCC6600
 # define WHITE 0xFFFFFF
 
 # define KEY 2
-# define MOUSE 4
-# define MOTION 6
-# define EXPOSE 12
 # define CLOSE 17
 
 # define UP 126
@@ -42,21 +32,22 @@
 # define RIGHT 124
 # define ESC 53
 
+# define TEXTURE_0 (xor_color + 256 * xor_color + 65536 * xor_color)
+# define TEXTURE_1 (256 * xor_color)
+# define TEXTURE_2 (xor_color + 128 * xor_color + 32768 * xor_color)
+# define TEXTURE_3 (65536 * xor_color)
+# define TEXTURE_4 (xor_color + 64 * xor_color + 16384 * xor_color)
+# define TEXTURE_5 (xor_color + 64 * xor_color + 65536 * xor_color) 
+
 typedef struct		s_mlx
 {
 	void			*mlx;
 	void			*win;
 	char			*img;
-	int				wid;
-	int				hgt;
 	int				*data;
 	int				size;
 	int				bits;
 	int				endian;
-	int				expose;
-	int				motion;
-	int				motion_x;
-	int				motion_y;
 }					t_mlx;
 
 typedef struct		s_map
@@ -64,15 +55,14 @@ typedef struct		s_map
 	int				**map;
 	int				row;
 	int				col;
-	int				y;
-	int				x;
+	double			x;
+	double			y;
 }					t_map;
 
 typedef struct		s_env
 {
 	t_mlx			mlx;
 	t_map			map;
-	pthread_mutex_t	mutex;
 	int				*texture[6];
 	double			dir_x;
 	double			dir_y;
@@ -83,8 +73,8 @@ typedef struct		s_env
 	double			ray_pos_y;
 	double			ray_dir_x;
 	double			ray_dir_y;
-	int				map_y;
 	int				map_x;
+	int				map_y;
 	double			side_dist_x;
 	double			side_dist_y;
 	double			delta_dist_x;
@@ -93,11 +83,18 @@ typedef struct		s_env
 	int				step_x;
 	int				step_y;
 	int				side;
-	int				line_hgt;
-	int				draw_st;
-	int				draw_end;
-	int				text_n;
 	double			wall_x;
+	int				line_hgt;
+	double			floor_x;
+	double			floor_y;
+	double			dist_wall;
+	double			dist_pos;
+	double			dist_curr;
+	double			weight;
+	double			curr_floor_x;
+	double			curr_floor_y;
+	int				floor_text_x;
+	int				floor_text_y;
 }					t_env;
 
 typedef struct		s_thread
@@ -140,22 +137,28 @@ bool				map_size(t_env *e, int fd);
 bool				map_start_pos(t_env *e, int fd);
 bool				map_create(t_env *e, int fd);
 bool				map_alloc(t_env *e);
+
+/*
+**					map_handler
+*/
+
 char				**map_valid(t_env *e, char *line);
+bool				map_valid_wall(t_env *e);
 
 /*
 **					plot_handler
 */
 
-void				plot(t_env *e, int x);
+void				plot(t_env *e, int x, int st, int end);
+int					get_wall(t_env *e);
+void				plot_floor(t_env *e, int x, int end);
+void				calc_ray_floor(t_env *e);
 
 /*
 **					hook_handler
 */
 
 int					key_hooks(int code, t_env *e);
-int					mouse_hooks(int button, int x, int y, t_env *e);
-int					motion_hooks(int x, int y, t_env *e);
-int					expose_hooks(t_env *e);
 int					close_hooks(t_env *e);
 
 /*
@@ -164,24 +167,5 @@ int					close_hooks(t_env *e);
 
 void				ft_exit(t_env *e, char *msg);
 void				destroy(t_env *e);
-
-/*
-**
-*/
-
-
-
-/*
-**
-*/
-
-
-
-/*
-**
-*/
-
-
-
 
 #endif
