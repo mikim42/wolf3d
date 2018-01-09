@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 22:12:44 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/07 15:00:47 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/09 03:44:05 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_exit(t_env *e, char *msg)
 {
 	if (msg)
 		ft_printf("%s\n", msg);
+	system("killall afplay");
 	destroy(e);
 	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 22:16:43 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/07 17:25:24 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/09 03:42:34 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	init_wolf3d(t_env *e)
 	while (++i < 6)
 		if (!(e->texture[i] = malloc(sizeof(int) * FT_SQR(TEXTURE))))
 			ft_exit(e, "wolf3d: failed to init mlx");
+	system("afplay ./sounds/bgm.mp3 &");
 }
 
 void	parse(t_env *e, char *map)
