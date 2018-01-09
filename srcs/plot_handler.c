@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 21:49:47 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/08 01:21:26 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/09 09:39:24 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	plot(t_env *e, int x, int st, int end)
 		e->wall_x = e->ray_pos_x + e->perp_wall_dist * e->ray_dir_x;
 	e->wall_x -= floor(e->wall_x);
 	texture_x = e->wall_x * TEXTURE;
-	if((!e->side && e->ray_dir_x > 0) || (e->side && e->ray_dir_y < 0))
+	if ((!e->side && e->ray_dir_x > 0) || (e->side && e->ray_dir_y < 0))
 		texture_x = TEXTURE - texture_x - 1;
 	while (st < end)
 	{

@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 17:59:08 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/07 17:16:14 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/09 09:38:52 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,11 @@ void	dda_loop(t_env *e)
 			break ;
 	}
 	if (!e->side)
-	{
 		e->perp_wall_dist =
 		(e->map_x - e->ray_pos_x + (1 - e->step_x) / 2) / e->ray_dir_x;
-	}
 	else
-	{
 		e->perp_wall_dist =
 		(e->map_y - e->ray_pos_y + (1 - e->step_y) / 2) / e->ray_dir_y;
-	}
 }
 
 void	dda_algorithm(t_env *e)
@@ -100,6 +96,6 @@ void	raycasting(t_env *e)
 		if (end >= WINDOW)
 			end = WINDOW - 1;
 		plot(e, x, st, end);
-		plot_floor(e, x, end); 
+		plot_floor(e, x, end);
 	}
 }

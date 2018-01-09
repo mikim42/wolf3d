@@ -6,13 +6,13 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 20:32:52 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/04 22:49:26 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/09 09:38:09 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <wolf3d.h>
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_env e;
 
