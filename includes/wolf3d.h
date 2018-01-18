@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 20:44:19 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/09 09:40:38 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/18 15:33:12 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,10 +148,10 @@ bool				map_create(t_env *e, int fd);
 bool				map_alloc(t_env *e);
 
 /*
-**					map_handler
+**					valid_handler
 */
 
-char				**map_valid(t_env *e, char *line);
+char				**map_valid(t_env *e, char *line, int index);
 bool				map_valid_wall(t_env *e);
 
 /*

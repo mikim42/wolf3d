@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 22:40:27 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/09 09:39:04 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/18 15:41:39 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,20 @@ bool	map_create(t_env *e, int fd)
 	int		i;
 	int		j;
 
-	i = 0;
+	i = -1;
 	if (!map_alloc(e))
 		return (false);
-	while ((ret = get_next_line(fd, &line) > 0))
+	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		if (!(split = map_valid(e, line)))
+		if (!(split = map_valid(e, line, ++i)))
 			return (false);
 		j = -1;
 		while (++j < e->map.col)
 			e->map.map[i][j] = ft_atoi(split[j]);
 		ft_splitdel(split);
 		free(line);
-		i++;
 	}
-	if (ret == -1 || i != e->map.row)
+	if (ret == -1 || i != e->map.row - 1)
 		return (false);
 	return (true);
 }
@@ -92,8 +91,8 @@ bool	map_size(t_env *e, int fd)
 	if (!line || !(split = ft_strsplit(line, ' ')))
 		ret = false;
 	if (!split || !split[1] || split[2] ||
-		(e->map.col = ft_atoi(split[0])) < 2 ||
-		(e->map.row = ft_atoi(split[1])) < 2)
+		(e->map.row = ft_atoi(split[0])) < 2 ||
+		(e->map.col = ft_atoi(split[1])) < 2)
 		ret = false;
 	if (line)
 		free(line);

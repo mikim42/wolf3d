@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/07 15:31:11 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/17 23:04:09 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/18 15:40:37 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,33 +34,14 @@ bool	map_valid_wall(t_env *e)
 	return (true);
 }
 
-bool	map_valid_xy(t_env *e, char **split)
-{
-	int i;
-	int j;
-
-	i = -1;
-	while (split[++i])
-	{
-		j = -1;
-		while (split[i][++j])
-			;
-		if (j != e->map.row)
-			return (false);
-	}
-	if (i != e->map.col)
-		return (false);
-	return (true);
-}
-
-char	**map_valid(t_env *e, char *line)
+char	**map_valid(t_env *e, char *line, int index)
 {
 	char	**split;
 	int		i;
 
 	i = -1;
 	while (line[++i])
-		if (!(FT_ISNUM(line[i]) || line[i] == ' '))
+		if (!(FT_ISNUM(line[i]) || line[i] == ' ') || index >= e->map.row)
 		{
 			free(line);
 			return (NULL);
@@ -70,7 +51,10 @@ char	**map_valid(t_env *e, char *line)
 		free(line);
 		return (NULL);
 	}
-	if (!(map_valid_xy(e, split)))
+	i = -1;
+	while (split[++i])
+		;
+	if (i != e->map.col)
 	{
 		free(line);
 		ft_splitdel(split);
