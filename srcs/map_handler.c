@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 22:40:27 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/07 15:43:25 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/09 09:39:04 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,3 @@ bool	map_size(t_env *e, int fd)
 		ft_splitdel(split);
 	return (ret);
 }
-

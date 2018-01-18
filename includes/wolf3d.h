@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 20:44:19 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/08 01:20:47 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/09 09:40:38 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@
 # define ESC 53
 
 /*
-# define TEXTURE_0 (xor_color + 256 * xor_color + 65536 * xor_color)
-# define TEXTURE_1 (256 * xor_color)
-# define TEXTURE_2 (xor_color + 128 * xor_color + 32768 * xor_color)
-# define TEXTURE_3 (65536 * xor_color)
-# define TEXTURE_4 (xor_color + 64 * xor_color + 16384 * xor_color)
-# define TEXTURE_5 (xor_color + 64 * xor_color + 65536 * xor_color) 
+** # define TEXTURE_0 (xor_color + 256 * xor_color + 65536 * xor_color)
+** # define TEXTURE_1 (256 * xor_color)
+** # define TEXTURE_2 (xor_color + 128 * xor_color + 32768 * xor_color)
+** # define TEXTURE_3 (65536 * xor_color)
+** # define TEXTURE_4 (xor_color + 64 * xor_color + 16384 * xor_color)
+** # define TEXTURE_5 (xor_color + 64 * xor_color + 65536 * xor_color)
 */
 
 # define TEXTURE_0 (0x6666FF * (x != y && x != TEXTURE - y))
