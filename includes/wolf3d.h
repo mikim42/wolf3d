@@ -6,7 +6,7 @@
 /*   By: mikim <mikim@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/04 20:44:19 by mikim             #+#    #+#             */
-/*   Updated: 2018/01/18 15:33:12 by mikim            ###   ########.fr       */
+/*   Updated: 2018/01/23 09:35:34 by mikim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,22 @@
 # define RIGHT 124
 # define ESC 53
 
-/*
-** # define TEXTURE_0 (xor_color + 256 * xor_color + 65536 * xor_color)
-** # define TEXTURE_1 (256 * xor_color)
-** # define TEXTURE_2 (xor_color + 128 * xor_color + 32768 * xor_color)
-** # define TEXTURE_3 (65536 * xor_color)
-** # define TEXTURE_4 (xor_color + 64 * xor_color + 16384 * xor_color)
-** # define TEXTURE_5 (xor_color + 64 * xor_color + 65536 * xor_color)
-*/
 
+# define TEXTURE_0 (xor_color + 256 * xor_color + 65536 * xor_color)
+# define TEXTURE_1 (256 * xor_color)
+# define TEXTURE_2 (xor_color + 128 * xor_color + 32768 * xor_color)
+# define TEXTURE_3 (65536 * xor_color)
+# define TEXTURE_4 (xor_color + 64 * xor_color + 16384 * xor_color)
+# define TEXTURE_5 (xor_color + 64 * xor_color + 65536 * xor_color)
+
+/*
 # define TEXTURE_0 (0x6666FF * (x != y && x != TEXTURE - y))
 # define TEXTURE_1 (xy_color + 153 * 256 * xy_color + 60000 * xy_color)
 # define TEXTURE_2 (0x006600 * (x % 3))
 # define TEXTURE_3 (xor_color + 64 * xor_color + 65536 * xor_color)
 # define TEXTURE_4 (65536 * 64 * (x % 8 && y % 8))
 # define TEXTURE_5 (0xCC9900 * (y % 8 && 1))
-
+*/
 typedef struct		s_mlx
 {
 	void			*mlx;
